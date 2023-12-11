@@ -4,6 +4,7 @@ class Livro:
         self.autor = autor
         self.exemplaresDisponiveis = exemplaresDisponiveis
 
+
 class CatalogoLivros:
     def __init__(self):
         self.catalogo = []
@@ -46,16 +47,32 @@ livros = [
     Livro("Algorithms of Oppression: How Search Engines Reinforce Racism", "Safiya Umoja Noble", 4)
 ]
 
-for livro in livros:
-    catalogo.cadastrarLivro(livro)
+def cadastrarNovoLivro():
+    titulo = input("Digite o título do livro: ")
+    autor = input("Digite o nome do autor: ")
+    exemplares = int(input("Digite a quantidade de exemplares disponíveis: "))
 
-print("Agradeço por visitar a livraria 'Gato Sem Rabo'. Por favor, digite o termo que deseja buscar.")
-termoBusca = input("Digite o termo de busca: ")
+    while exemplares <= 0:  # Garante que o número de exemplares seja válido
+        exemplares = int(input("Digite uma quantidade válida de exemplares (maior que zero): "))
 
-resultadosPesquisa = catalogo.pesquisarLivro(termoBusca)
-if resultadosPesquisa:
-    print(f"Resultados da pesquisa para '{termoBusca}':")
-    for resultado in resultadosPesquisa:
-        print(f"Título: {resultado[0]}, Autor: {resultado[1]}, Disponíveis: {resultado[2]}")
+    novo_livro = Livro(titulo, autor, exemplares)
+    catalogo.cadastrarLivro(novo_livro)
+    print(f"O livro '{titulo}' foi cadastrado com sucesso!")
+
+
+print("Bem-vindo à livraria 'Gato Sem Rabo'!")
+opcao = input("Digite 'buscar' para pesquisar um livro ou 'cadastrar' para adicionar um novo livro: ")
+
+if opcao.lower() == 'buscar':
+    termoBusca = input("Digite o termo de busca: ")
+    resultadosPesquisa = catalogo.pesquisarLivro(termoBusca)
+    if resultadosPesquisa:
+        print(f"Resultados da pesquisa para '{termoBusca}':")
+        for resultado in resultadosPesquisa:
+            print(f"Título: {resultado[0]}, Autor: {resultado[1]}, Disponíveis: {resultado[2]}")
+    else:
+        print(f"Nenhum resultado encontrado para '{termoBusca}'.")
+elif opcao.lower() == 'cadastrar':
+    cadastrarNovoLivro()
 else:
-    print(f"Nenhum resultado encontrado para '{termoBusca}'.")
+    print("Opção inválida.")
