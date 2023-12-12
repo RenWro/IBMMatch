@@ -58,6 +58,7 @@ while True:
         while exemplares <= 0:
             exemplares = int(input("Digite uma quantidade válida de exemplares (maior que zero): "))
 
+
         catalogo.cadastrarLivro(titulo, autor, exemplares)
     elif escolha.lower() == 'buscar':
         termoBusca = input("Digite o termo de busca: ")
